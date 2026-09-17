@@ -1,0 +1,1 @@
+candidate_id,candidate_name,candidate_email,candidate_phone,role_title,source,application_date,stage,stage_updated_at,hiring_manager_name,hiring_manager_email,interview_date,interviewers,feedback_status,next_action,next_action_date,time_in_stage_days,calendar_event_id,source_message_id,source_message_url,notes,last_notified_at,created_at,updated_at
