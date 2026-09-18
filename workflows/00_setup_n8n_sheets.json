@@ -1,0 +1,216 @@
+{
+  "name": "00_setup_n8n_sheets",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "e3e8f8b8-80e9-4e7d-9a99-100000000001",
+      "name": "When clicking 'Test workflow'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      candidate_id: 'candidate_id',\n      candidate_name: 'candidate_name',\n      candidate_email: 'candidate_email',\n      candidate_phone: 'candidate_phone',\n      role_title: 'role_title',\n      source: 'source',\n      application_date: 'application_date',\n      stage: 'stage',\n      stage_updated_at: 'stage_updated_at',\n      hiring_manager_name: 'hiring_manager_name',\n      hiring_manager_email: 'hiring_manager_email',\n      interview_date: 'interview_date',\n      interviewers: 'interviewers',\n      feedback_status: 'feedback_status',\n      next_action: 'next_action',\n      next_action_date: 'next_action_date',\n      time_in_stage_days: 'time_in_stage_days',\n      calendar_event_id: 'calendar_event_id',\n      source_message_id: 'source_message_id',\n      source_message_url: 'source_message_url',\n      notes: 'notes',\n      last_notified_at: 'last_notified_at',\n      created_at: 'created_at',\n      updated_at: 'updated_at'\n    }\n  }\n];"
+      },
+      "id": "e3e8f8b8-80e9-4e7d-9a99-100000000002",
+      "name": "Candidates Schema",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      event_id: 'event_id',\n      candidate_id: 'candidate_id',\n      gmail_message_id: 'gmail_message_id',\n      event_type: 'event_type',\n      timestamp: 'timestamp',\n      previous_stage: 'previous_stage',\n      new_stage: 'new_stage',\n      status: 'status',\n      error_details: 'error_details'\n    }\n  }\n];"
+      },
+      "id": "e3e8f8b8-80e9-4e7d-9a99-100000000004",
+      "name": "Event_History Schema",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      review_id: 'review_id',\n      gmail_message_id: 'gmail_message_id',\n      received_at: 'received_at',\n      reason: 'reason',\n      extracted_payload: 'extracted_payload',\n      status: 'status',\n      resolution_notes: 'resolution_notes'\n    }\n  }\n];"
+      },
+      "id": "e3e8f8b8-80e9-4e7d-9a99-100000000006",
+      "name": "Review_Queue Schema",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.RECRUITING_SHEET_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Candidates",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData"
+        }
+      },
+      "id": "e3e8f8b8-80e9-4e7d-9a99-100000000003",
+      "name": "Init Candidates Tab",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        680,
+        180
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google_oauth_credentials",
+          "name": "Google OAuth2 Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.RECRUITING_SHEET_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Event_History",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData"
+        }
+      },
+      "id": "e3e8f8b8-80e9-4e7d-9a99-100000000005",
+      "name": "Init Event_History Tab",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        680,
+        340
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google_oauth_credentials",
+          "name": "Google OAuth2 Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.RECRUITING_SHEET_ID }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Review_Queue",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData"
+        }
+      },
+      "id": "e3e8f8b8-80e9-4e7d-9a99-100000000007",
+      "name": "Init Review_Queue Tab",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        680,
+        500
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google_oauth_credentials",
+          "name": "Google OAuth2 Account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "node": "Candidates Schema",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Event_History Schema",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Review_Queue Schema",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Candidates Schema": {
+      "main": [
+        [
+          {
+            "node": "Init Candidates Tab",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Event_History Schema": {
+      "main": [
+        [
+          {
+            "node": "Init Event_History Tab",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Review_Queue Schema": {
+      "main": [
+        [
+          {
+            "node": "Init Review_Queue Tab",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "10000000-0000-0000-0000-000000000002",
+  "meta": {
+    "instanceId": "recruiting-workflow-automation-system"
+  }
+}

@@ -40,6 +40,14 @@ Quick-start setup guide for local and cloud deployment of the Recruiting Workflo
    - [`schemas/Candidates.csv`](file:///d:/GitHub/New%20folder/Recruiting%20Workflow%20Automation%20System/schemas/Candidates.csv) → header row for `Candidates` tab.
    - [`schemas/Event_History.csv`](file:///d:/GitHub/New%20folder/Recruiting%20Workflow%20Automation%20System/schemas/Event_History.csv) → header row for `Event_History` tab.
    - [`schemas/Review_Queue.csv`](file:///d:/GitHub/New%20folder/Recruiting%20Workflow%20Automation%20System/schemas/Review_Queue.csv) → header row for `Review_Queue` tab.
+4. Alternatively, execute the schema initialization script:
+   ```bash
+   python scripts/init_sheets.py
+   ```
+5. Validate environment setup:
+   ```bash
+   python scripts/validate_env.py
+   ```
 
 ---
 
